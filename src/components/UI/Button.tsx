@@ -3,13 +3,13 @@ import { Link, type LinkProps } from 'react-router-dom';
 
 type BasePropsType = {
   children: ReactNode;
-  textOnly: string;
+  textOnly?: boolean;
 };
 
 type ButtonPropsType = ComponentPropsWithoutRef<'button'> &
   BasePropsType & { to?: never };
 
-type ButtonLinkPropsType = LinkProps & BasePropsType & { textOnly: string };
+type ButtonLinkPropsType = LinkProps & BasePropsType & { to: string };
 
 function isLinkProps(
   props: ButtonPropsType | ButtonLinkPropsType
@@ -24,7 +24,7 @@ export default function Button(props: ButtonPropsType | ButtonLinkPropsType) {
       <Link
         className={`button ${textOnly ? 'button--text-only' : ''}`}
         {...restProps}
-      ></Link>
+      >{children}</Link>
     );
   }
   const { children, textOnly, ...restProps } = props;
@@ -32,6 +32,6 @@ export default function Button(props: ButtonPropsType | ButtonLinkPropsType) {
     <button
       className={`button ${textOnly ? 'button--text-only' : ''}`}
       {...restProps}
-    ></button>
+    >{children}</button>
   );
 }
